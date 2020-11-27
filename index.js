@@ -18,5 +18,7 @@ app.post('/',(req,res)=>{
     }
     res.send(veriCode);
 });
-
+app.get('/'(req,res) =>{
+    res.send('witam');
+});
 app.listen(port);
