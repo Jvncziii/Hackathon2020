@@ -4,7 +4,7 @@ const port = 2137;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/',(req,res)=>{
+app.post('/veriUsr',(req,res)=>{
     let phoneNumber = req.body.phoneNumber;
     if(phoneNumber.length != 9)
     {
