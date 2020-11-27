@@ -1,1 +1,0 @@
-Web/Android app designed to help with tracking peoples interactions with boars
