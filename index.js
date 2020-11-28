@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const port = process.env.PORT || 2137;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
 const pool = mysql.createPool({
     connectionLimit : 50,
