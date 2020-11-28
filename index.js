@@ -188,7 +188,7 @@ app.post('/getSights',(req,res) =>{
                         return res.send(err)
                     }else
                     res.send(rows);
-                })
+                })})
         })
     })
 })
@@ -198,3 +198,4 @@ app.get('/',(req,res) =>{
     return res.send('witam');
 });
 app.listen(port);
+
