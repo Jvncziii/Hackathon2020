@@ -91,11 +91,12 @@ app.post('/getHandshake',(req,res) =>{
                     return res.status(404).send(err)
                     connection.query("UPDATE `users` SET `Handshake`='"+hash+"' WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
                         connection.release();
-                        if(err)
-                        return res.status(404).send(err);
+                        if(err){
+                            return res.status(404).send(err);
+                        }
+                        return res.send(hash);
                     });
                 })
-                return res.send(hash);
             }
 
 
