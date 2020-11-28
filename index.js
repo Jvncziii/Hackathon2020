@@ -149,7 +149,7 @@ app.post('/reportSight',(req,res) =>{
                         pool.getConnection((err,connection)=>{
                             if(err)
                             return res.send(err)
-                            connection.query("SELECT Report_ID from reports where `Date` = '"+DataZg+"' AND Latitude like '"+Latitude+"' AND Longitude like '"+Longitude+"'",(err,rows)=>{
+                            connection.query("SELECT Report_ID from reports where `Date` = "+DataZg+" AND Latitude like '"+Latitude+"' AND Longitude like '"+Longitude+"'",(err,rows)=>{
                                 if(err)
                                 return res.send();
                                 console.log(rows[0])
