@@ -1,11 +1,31 @@
 const express  = require('express');
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 const port = process.env.PORT || 2137;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const pool = mysql.createPool({
+    connectionLimit : 50,
+    host: 'mysql50.mydevil.net',
+    user:'m1124_webApp',
+    password:'xXDzik2Xx',
+    database:'m1124_webApp'
+});
+
 app.post('/veriUsr',(req,res)=>{
     let phoneNumber = req.body.phoneNumber;
+    pool.getConnection((err,con)=>{
+        if(err) throw err;
+        connection.query("SELECT NrTel where NrTel like '"+phoneNumber+"'",(err,rows) =>{
+            connection.release();
+            if(err)
+            {
+                throw err;
+            }else if(rows.includes(phoneNumber))
+            throw 'Telefon istnieje w bazie danych';
+        });
+    });
     if(phoneNumber.length != 9)
     {
         throw new Error("Niepoprawny numer telefonu");
