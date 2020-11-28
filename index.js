@@ -25,11 +25,9 @@ app.post('/veriUsr',(req,res)=>{
                 res.status(err);
             }
             
-                if(rows[0].NrTel == phoneNumber)
+                if(rows == null)
                 {
-                    res.status(404).send('Error: Taki telefon istnieje w bazie');
-                }else
-                if(phoneNumber.length != 9)
+                    if(phoneNumber.length != 9)
                     {
                         res.status(4044).send("Niepoprawny numer telefonu");
                     }
@@ -39,6 +37,9 @@ app.post('/veriUsr',(req,res)=>{
                         veriCode += Math.floor(Math.random()*(9-0+1))+0;
                     }
                     res.send(veriCode);
+                    
+                }else
+                res.status(404).send('Error: Taki telefon istnieje w bazie');
                 });});
                     
 });
