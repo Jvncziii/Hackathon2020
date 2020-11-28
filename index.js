@@ -112,9 +112,6 @@ app.post('/reportSight',(req,res) =>{
     let Miejscowosc = req.body.Miejscowosc;
     let Postal = req.body.Postal;
     let isAccepted = 0;
-    let ZDJ1 = req.body.Zdj1;
-    let ZDJ2 = req.body.Zdj2;
-    let ZDJ3 = req.body.Zdj3;
     console.log(req.body);
 
     pool.getConnection((err,connection)=>{
@@ -141,7 +138,7 @@ app.post('/reportSight',(req,res) =>{
                     {
                         return res.send(err);
                     }
-                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`,`ZDJ1`,`ZDJ2`,`ZDJ3`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+",'"+ZDJ1+"','"+ZDJ2+"','"+ZDJ3+"')",(err,rows)=>{
+                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+")",(err,rows)=>{
                         connection.release()
                         if(err)
                         {
@@ -149,7 +146,15 @@ app.post('/reportSight',(req,res) =>{
                             return res.send(err)
                         }else
                         
-                        return res.send('Dodano rekord!');
+                        pool.getConnection((err,connection)=>{
+                            if(err)
+                            return res.send(err)
+                            connection.query("SELECT Report_ID from reports where `Date` = '"+DataZg+"' AND Latitude like '"+Latitude+"' AND Longitude like '"+Longitude+"'",(err,rows)=>{
+                                if(err)
+                                return res.send();
+                                return res.send(rows[0].ReportID);
+                            })
+                        })
                         
                     })
                 })
@@ -193,6 +198,38 @@ app.post('/getSights',(req,res) =>{
                     res.send(rows);
                 })})
         })
+    })
+})
+
+app.post('/partPhoto',(req,res)=>{
+    let handshake = req.body.handshake;
+    let ReportID = req.body.ReportID;
+    let phoneNumber = req.body.NrTel;
+    let whichPhoto = req.body.whichPhoto;
+    let whichPart = req.body.whichPart;
+    let photoPart = req.body.photoPart;
+
+    pool.getConnection((err,connection)=>{
+        if(err)
+        return res.send(err);
+        connection.query("Select Handshake from users where NrTel like '"+phoneNumber+"' ",(err,rows)=>{
+            connection.release();
+            if(err)
+            return res.send(err);
+            else if(rows[0].Handshake == hanshake)
+            {
+                pool.getConnection((err,connection)=>{
+                    if(err)
+                    return res.send(err)
+                    connection.query("UPDATE `reports` SET `ZDJ"+whichPhoto+"` = CONCAT(`ZDJ"+whichPhoto"`,'"+photoPart+"' WHERE Report_ID = "+ReportID+")",(err,rows)=>{
+                        if(err)
+                        return res.send(err)
+                        return res.send("Dodano część "+whichPart+"")
+                    })
+                });
+            }else
+            return res.send(err);
+        });
     })
 })
 
