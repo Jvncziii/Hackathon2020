@@ -31,8 +31,7 @@ app.post('/veriUsr',(req,res)=>{
                 }else
                 if(phoneNumber.length != 9)
                     {
-                        throw new Error("Niepoprawny numer telefonu");
-                        
+                        res.send("Niepoprawny numer telefonu");
                     }
                     let veriCode = '';
                     for(let x=0;x<5;x++)
@@ -40,7 +39,7 @@ app.post('/veriUsr',(req,res)=>{
                         veriCode += Math.floor(Math.random()*(9-0+1))+0;
                     }
                     res.send(veriCode);
-                    };
+                    
 });
 app.get('/',(req,res) =>{
     res.send('witam');
