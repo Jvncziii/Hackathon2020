@@ -22,7 +22,7 @@ app.post('/veriUsr',(req,res)=>{
             connection.release();
             if(err)
             {
-                throw 'Problem z połączeniem';
+                throw err
             }else if(rows.includes(phoneNumber))
             throw 'Telefon istnieje w bazie danych';
         });
