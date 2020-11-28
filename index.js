@@ -60,7 +60,7 @@ app.post('/veriUsr',(req,res)=>{
 app.post('/getHandshake',(req,res) =>{
     let recCode = req.body.veriCode;
     let phoneNumber = req.body.phoneNumber;
-    let name = Math.floor(Math.random()*(99999-0+1))+0;
+    let name = String(Math.floor(Math.random()*(99999-0+1))+0);
     let hash = crypto.createHash('md5').update(name).digest('hex');
     console.log(recCode,' | ',phoneNumber,' | ',hash);
     res.send(hash);
