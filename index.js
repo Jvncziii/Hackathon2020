@@ -22,14 +22,14 @@ app.post('/veriUsr',(req,res)=>{
             connection.release();
             if(err)
             {
-                res.status(err);
+               return res.status(err);
             }
             console.log(rows)
                 if(rows.length == 0)
                 {
                     if(phoneNumber.length != 9)
                     {
-                        res.status(404).send("Niepoprawny numer telefonu");
+                        return res.status(404).send("Niepoprawny numer telefonu");
                     }
                     let veriCode = '';
                     for(let x=0;x<5;x++)
@@ -42,11 +42,11 @@ app.post('/veriUsr',(req,res)=>{
                         connection.release();
 
                     });
-                    res.send(veriCode);
+                   return res.send(veriCode);
                     
                     
                 }else
-                res.status(404).send('Error: Taki telefon istnieje w bazie');
+               return res.status(404).send('Error: Taki telefon istnieje w bazie');
                 });});
                     
 });
