@@ -7,10 +7,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const pool = mysql.createPool({
     connectionLimit : 50,
-    host: 'mysql50.mydevil.net',
-    user:'m1124_webApp',
+    host: '192.168.101.54',
+    user:'martinok_dbCare',
     password:'xXDzik2Xx',
-    database:'m1124_webApp'
+    database:'martinok_webApp'
 });
 
 app.post('/veriUsr',(req,res)=>{
@@ -18,7 +18,7 @@ app.post('/veriUsr',(req,res)=>{
     pool.getConnection((err,connection)=>{
         if(err) 
         throw err;
-        connection.query("SELECT NrTel where NrTel like '"+phoneNumber+"'",(err,rows) =>{
+        connection.query("SELECT NrTel where NrTel like '"+phoneNumber+"'FROM users",(err,rows) =>{
             connection.release();
             if(err)
             {
