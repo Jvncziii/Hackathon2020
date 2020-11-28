@@ -36,7 +36,12 @@ app.post('/veriUsr',(req,res)=>{
                     {
                         veriCode += Math.floor(Math.random()*(9-0+1))+0;
                     }
-                    connection.query("INSERT INTO `users`(`NrTel`,`KodWer`) VALUES ('"+phoneNumber+"','"+veriCode+"')");
+                    connection.query("INSERT INTO `users`(`NrTel`,`KodWer`) VALUES ('"+phoneNumber+"','"+veriCode+"')",(err,rows)=>{
+                        if(err)
+                        res.send(err);
+                        connection.release();
+
+                    });
                     res.send(veriCode);
                     
                     
