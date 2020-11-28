@@ -36,7 +36,9 @@ app.post('/veriUsr',(req,res)=>{
                     {
                         veriCode += Math.floor(Math.random()*(9-0+1))+0;
                     }
+                    connection.query("INSERT INTO `users`(`NrTel`,`KodWer`) VALUES ('"+phoneNumber+"','"+veriCode+"')");
                     res.send(veriCode);
+                    
                     
                 }else
                 res.status(404).send('Error: Taki telefon istnieje w bazie');
