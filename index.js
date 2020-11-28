@@ -24,6 +24,7 @@ app.post('/veriUsr',(req,res)=>{
                 throw err;
             }else if(rows.includes(phoneNumber))
             throw 'Telefon istnieje w bazie danych';
+            console.log('Dupa');
         });
     });
     if(phoneNumber.length != 9)
