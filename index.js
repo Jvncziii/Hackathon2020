@@ -7,11 +7,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const pool = mysql.createPool({
     connectionLimit : 50,
-    host: '192.168.101.54',
-    user:'martinok_dbCare',
-    password:'xXDzik2Xx',
-    database:'martinok_webApp',
-    port: '3306'
+    host: 'mysql.cba.pl',
+    user:'dbCare',
+    password:'xXDzik3Xx',
+    database:'jvncziii'
 });
 
 app.post('/veriUsr',(req,res)=>{
