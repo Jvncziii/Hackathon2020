@@ -158,6 +158,41 @@ app.post('/reportSight',(req,res) =>{
     
 })
 
+app.post('/getSights',(req,res) =>{
+    let handshake = req.body.handshake;
+    let newestDate = req.body.NewestDate;
+    let phoneNumber = req.body.NrTel;
+    pool.getConnection((err,connection)=>{
+        if(err)
+        {
+            return res.send(err);
+        }
+        connection.query("SELECT handshake from users where NrTel like '"+phoneNumber+"'",(err,rows)=>{
+            connection.release();
+            if(err)
+            {
+                return res.send(err);
+            }else if(rows[0].handshake != handshake)
+            {
+                return res.send('Zły handshake');
+            }else
+            pool.getConnection((err,connection)=>{
+                if(err)
+                {
+                    return res.send(err);
+                }
+                connection.query("SELECT `Date`,`Latitude`,`Longitude`,`MaleZ`,`DuzeZ`,`MaleM`,`DuzeM`,`Wojewodztwo`,`Miejscowosc`,`Pocztowy` FROM `reports` WHERE `Date` > '"+newestDate+"'",(err,rows)=>{
+                    connection.release();
+                    if(err)
+                    {
+                        return res.send(err)
+                    }else
+                    res.send(rows);
+                })
+        })
+    })
+})
+
 
 app.get('/',(req,res) =>{
     return res.send('witam');
