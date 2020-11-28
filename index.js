@@ -80,7 +80,6 @@ app.post('/getHandshake',(req,res) =>{
             else if(rows[0].KodWer != recCode)
             return res.status(404).send('Kody nie zgadzają się');
             else if(rows[0].KodWer == recCode){
-                res.send(hash);
                 pool.getConnection((err,connection)=>{
                     if(err)
                     return res.send(err)
@@ -90,6 +89,7 @@ app.post('/getHandshake',(req,res) =>{
                         return res.send(err);
                     });
                 })
+                res.send(hash);
             }
 
 
