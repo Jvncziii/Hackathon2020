@@ -221,7 +221,7 @@ app.post('/partPhoto',(req,res)=>{
                 pool.getConnection((err,connection)=>{
                     if(err)
                     return res.send(err)
-                    connection.query("UPDATE `reports` SET `ZDJ"+whichPhoto+"` = CONCAT(`ZDJ"+whichPhoto"`,'"+photoPart+"' WHERE Report_ID = "+ReportID+")",(err,rows)=>{
+                    connection.query("UPDATE `reports` SET `ZDJ"+whichPhoto+"` = CONCAT(`ZDJ"+whichPhoto+"`,'"+photoPart+"' WHERE Report_ID = "+ReportID+")",(err,rows)=>{
                         if(err)
                         return res.send(err)
                         return res.send("Dodano część "+whichPart+"")
