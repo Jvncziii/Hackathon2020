@@ -205,7 +205,7 @@ app.post('/getSights',(req,res) =>{
     })
 })
 
-app.post('/partPhoto',(req,res)=>{
+app.post('/partPhotoUpload',(req,res)=>{
     let handshake = req.body.handshake;
     let ReportID = req.body.ReportID;
     let phoneNumber = req.body.NrTel;
