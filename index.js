@@ -29,7 +29,7 @@ app.post('/veriUsr',(req,res)=>{
                 {
                     if(phoneNumber.length != 9)
                     {
-                        res.status(4044).send("Niepoprawny numer telefonu");
+                        res.status(404).send("Niepoprawny numer telefonu");
                     }
                     let veriCode = '';
                     for(let x=0;x<5;x++)
