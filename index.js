@@ -88,7 +88,7 @@ app.post('/getHandshake',(req,res) =>{
                     });
                 })
             }else
-            return res.status(404).send('Error');
+            return res.send('ZŁY NUMER DEBILU');
 
 
         })
