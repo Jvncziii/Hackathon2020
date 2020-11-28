@@ -156,7 +156,7 @@ app.post('/reportSight',(req,res) =>{
                                 }else
                                console.log('Tutaj')
                                 console.log(rows[0])
-                                return res.send('Dodano rekord!'+rows[0]);
+                                return res.send('Dodano rekord!'+rows[0].Report_ID);
                             })
                         })
                         
