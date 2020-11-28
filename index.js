@@ -76,8 +76,11 @@ app.post('/getHandshake',(req,res) =>{
             connection.release();
             if(rows[0].KodWer == recCode && rows[0].NrTel == phoneNumber) {
                 console.log('Dobry Kod i Tel');
+                return res.send(hash);
+            }else{
+                return res.send('Błąd');
             }
-
+            
 
         })
     })
