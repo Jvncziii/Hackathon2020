@@ -108,6 +108,7 @@ app.post('/reportSight',(req,res) =>{
     let DuzeM = req.body.DuzeM;
     let Wojewodztwo = req.body.Wojewodztwo;
     let Miejscowosc = req.body.Miejscowosc;
+    let Postal = req.body.Postal;
     let isAccepted = 0;
     console.log(req.body);
 
@@ -135,7 +136,7 @@ app.post('/reportSight',(req,res) =>{
                     {
                         return res.send(err);
                     }
-                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`, `isAccepted`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"',"+isAccepted+")",(err,rows)=>{
+                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+")",(err,rows)=>{
                         connection.release()
                         if(err)
                         {
