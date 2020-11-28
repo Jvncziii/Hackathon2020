@@ -1,6 +1,7 @@
 const express  = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const crypto = require('crypto');
 const port = process.env.PORT || 2137;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,7 +18,7 @@ app.post('/veriUsr',(req,res)=>{
     let phoneNumber = req.body.phoneNumber;
     pool.getConnection((err,connection)=>{
         if(err) 
-        throw err;
+        return res.send(err);
         connection.query("SELECT NrTel FROM `users` WHERE NrTel like '"+phoneNumber+"'",(err,rows) =>{
             connection.release();
             if(err)
@@ -37,6 +38,8 @@ app.post('/veriUsr',(req,res)=>{
                         veriCode += Math.floor(Math.random()*(9-0+1))+0;
                     }
                     pool.getConnection((err,connection) =>{
+                        if(err)
+                        return res.send(err);
                         connection.query("INSERT INTO `users`(`NrTel`,`KodWer`) VALUES ('"+phoneNumber+"','"+veriCode+"')",(err,rows)=>{
                             if(err)
                             res.send(err);
@@ -52,6 +55,18 @@ app.post('/veriUsr',(req,res)=>{
                 });});
                     
 });
+
+
+app.post('/getHandshake',(req,res) =>{
+    let recCode = req.body.veriCode;
+    let phoneNumber = req.body.phoneNumber;
+    let name = Math.floor(Math.random()*(99999-0+1))+0;
+    let hash = crypto.createHash('md5').update(name).digest('hex');
+    console.log(recCode,' | ',phoneNumber,' | ',hash);
+    res.send(hash);
+});
+
+
 app.get('/',(req,res) =>{
     res.send('witam');
 });
