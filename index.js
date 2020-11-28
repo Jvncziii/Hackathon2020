@@ -24,7 +24,7 @@ app.post('/veriUsr',(req,res)=>{
             {
                 res.status(err);
             }
-            
+            console.log(rows)
                 if(rows == null)
                 {
                     if(phoneNumber.length != 9)
