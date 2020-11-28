@@ -141,7 +141,7 @@ app.post('/reportSight',(req,res) =>{
                     {
                         return res.send(err);
                     }
-                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`,`ZDJ1`,`ZDJ2`,`ZDJ3`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+")",(err,rows)=>{
+                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`,`ZDJ1`,`ZDJ2`,`ZDJ3`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+",'"+ZDJ1+"','"+ZDJ2+"','"+ZDJ3+"')",(err,rows)=>{
                         connection.release()
                         if(err)
                         {
