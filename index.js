@@ -151,7 +151,10 @@ app.post('/reportSight',(req,res) =>{
                             return res.send(err)
                             connection.query("SELECT Report_ID from reports where `Date` = "+DataZg+" AND Latitude like '"+Latitude+"' AND Longitude like '"+Longitude+"'",(err,rows)=>{
                                 if(err)
-                                return res.send();
+                                {
+                                    return res.send(err);
+                                }
+                               console.log('Tutaj')
                                 console.log(rows[0])
                                 return res.send(rows[0].ReportID);
                             })
