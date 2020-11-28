@@ -220,7 +220,7 @@ app.post('/partPhotoUpload',(req,res)=>{
             connection.release();
             if(err)
             return res.send(err);
-            else if(rows[0].Handshake == hanshake)
+            else if(rows[0].Handshake == handshake)
             {
                 pool.getConnection((err,connection)=>{
                     if(err)
