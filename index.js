@@ -39,6 +39,7 @@ app.post('/veriUsr',(req,res)=>{
                         veriCode += Math.floor(Math.random()*(9-0+1))+0;
                     }
                     res.send(veriCode);
+                });});
                     
 });
 app.get('/',(req,res) =>{
