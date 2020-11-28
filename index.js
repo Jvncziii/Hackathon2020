@@ -96,6 +96,61 @@ app.post('/getHandshake',(req,res) =>{
 });
 
 
+app.post('/reportSight',(req,res) =>{
+    let phoneNumber = req.body.NrTel;
+    let handshake = req.body.handshake;
+    let Date = req.body.Date;
+    let Latitude = req.body.Latutude;
+    let Longitude = req.body.Longitude;
+    let MaleZ = req.body.MaleZ;
+    let DuzeZ = req.body.DuzeZ;
+    let MaleM = req.body.MaleM;
+    let DuzeM = req.body.DuzeM;
+    let Wojewodztwo = req.body.Wojewodztwo;
+    let Miejscowosc = req.body.Miejscowosc;
+    let isAccepted = 0;
+
+    pool.getConnection((err,connection)=>{
+        if(err)
+        {
+            return res.send(err);
+        }
+        connection.query("SELECT UID,handshake,NrTel FROM users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
+            connection.release();
+            let UID = rows[0].UID;
+            if(err)
+            {
+                return res.send(err);
+            }else if(rows == 0)
+            {
+                return res.status(404).send("Brak numeru w bazie")
+            }else if(rows[0].Handshake != handshake)
+            {
+                return res.status(404).send('Błędny handshake');
+            }else{
+                pool.getConnection((err,connection)=>{
+                    if(err)
+                    {
+                        return res.send(err);
+                    }
+                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`, `isAccepted`) VALUES ("+UID+","","+Date+","+Latitude+","+Longitude+","+MaleZ+","+DuzeZ+","+MaleM+","+DuzeM+","+Wojewodztwo+","+Miejscowosc+","+isAccepted+")",(err,connection)=>{
+                        connection.release();
+                        if(err)
+                        {
+                            return res.send(err)
+                        }else
+                        return res.send('Dodano rekord!');
+                    })
+                })
+            }
+
+
+        })
+    })
+    
+})
+
+
 app.get('/',(req,res) =>{
     return res.send('witam');
 });
