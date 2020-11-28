@@ -24,8 +24,12 @@ app.post('/veriUsr',(req,res)=>{
             {
                 throw err
             }
-            console.log(rows[0].NrTel);
-            console.log('Jest taki telefon');
+            for(let x = 0;x<rows.length;x++)
+            {
+                if(rows[x].NrTel == phoneNumber)
+                throw 'Taki telefon istnieje'
+            }
+            
         });
     });
     if(phoneNumber.length != 9)
