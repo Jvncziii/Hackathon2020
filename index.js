@@ -70,8 +70,9 @@ app.post('/getHandshake',(req,res) =>{
     }
     pool.getConnection((err,connection) =>{
         if(err)
-        return res.status(404).send(err)
+        return res.status(404).send(err);
         connection.query("SELECT NrTel,KodWer from users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
+            console.log(rows[0].KodWer,' | ',rows[0].NrTel);
             connection.release();
             if(rows[0].KodWer == recCode && rows[0].NrTel == phoneNumber) {
                 console.log('Dobry Kod i Tel');
