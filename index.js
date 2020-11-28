@@ -109,6 +109,7 @@ app.post('/reportSight',(req,res) =>{
     let Wojewodztwo = req.body.Wojewodztwo;
     let Miejscowosc = req.body.Miejscowosc;
     let isAccepted = 0;
+    console.log(req.body);
 
     pool.getConnection((err,connection)=>{
         if(err)
