@@ -89,7 +89,7 @@ app.post('/getHandshake',(req,res) =>{
                         return res.send(err);
                     });
                 })
-                res.send(hash);
+                return res.send(hash);
             }
 
 
