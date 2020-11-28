@@ -27,7 +27,7 @@ app.post('/veriUsr',(req,res)=>{
             for(let x = 0;x<rows.length;x++)
             {
                 if(rows[x].NrTel == phoneNumber)
-                console.log(row[x].NrTel,'   |   ',phoneNumber);
+                console.log(rows[x].NrTel,'   |   ',phoneNumber);
                 res.status(400).send();
             }
             
