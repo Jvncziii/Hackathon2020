@@ -135,7 +135,7 @@ app.post('/reportSight',(req,res) =>{
                     {
                         return res.send(err);
                     }
-                    connection.query("INSERT INTO reports(UID, Date, Latitude, Longitude, MaleZ, DuzeZ, MaleM, DuzeM, Wojewodztwo, Miejscowosc, isAccepted) VALUES ("+UID+","+DataZg+","+Latitude+","+Longitude+","+MaleZ+","+DuzeZ+","+MaleM+","+DuzeM+","+Wojewodztwo+","+Miejscowosc+","+isAccepted+")",(err,connection)=>{
+                    connection.query("INSERT INTO reports(UID, Date, Latitude, Longitude, MaleZ, DuzeZ, MaleM, DuzeM, Wojewodztwo, Miejscowosc, isAccepted) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"',"+isAccepted+")",(err,connection)=>{
                         connection.release();
                         if(err)
                         {
