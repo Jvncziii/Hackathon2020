@@ -142,18 +142,17 @@ app.post('/reportSight',(req,res) =>{
                         connection.release()
                         if(err)
                         {
-                            
                             return res.send(err)
                         }else
                         
                         pool.getConnection((err,connection)=>{
                             if(err)
                             return res.send(err)
-                            connection.query("SELECT Report_ID from reports where `Date` = "+DataZg+" AND Latitude like '"+Latitude+"' AND Longitude like '"+Longitude+"'",(err,rows)=>{
+                            connection.query("SELECT Report_ID from reports where `Date` = '"+DataZg+"' AND Latitude like '"+Latitude+"' AND Longitude like '"+Longitude+"'",(err,rows)=>{
                                 if(err)
                                 {
                                     return res.send(err);
-                                }
+                                }else
                                console.log('Tutaj')
                                 console.log(rows[0])
                                 return res.send(rows[0].ReportID);
