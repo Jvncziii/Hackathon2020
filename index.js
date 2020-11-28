@@ -117,8 +117,8 @@ app.post('/reportSight',(req,res) =>{
         }
         connection.query("SELECT UID,handshake,NrTel FROM users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
             connection.release();
-            let UID = rows[0].UID;
             console.log(rows);
+            let UID = rows[0].UID;
             if(err)
             {
                 return res.send(err);
