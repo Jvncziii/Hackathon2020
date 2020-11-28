@@ -63,7 +63,6 @@ app.post('/getHandshake',(req,res) =>{
     let name = String(Math.floor(Math.random()*(99999-0+1))+0);
     let hash = crypto.createHash('md5').update(name).digest('hex');
     console.log(recCode,' | ',phoneNumber,' | ',hash);
-    res.send(hash);
     if(phoneNumber.length != 9)
     {
         return res.status(404).send("Niepoprawny numer telefonu");
@@ -72,15 +71,23 @@ app.post('/getHandshake',(req,res) =>{
         if(err)
         return res.status(404).send(err);
         connection.query("SELECT NrTel,KodWer from users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
-            console.log(rows[0].KodWer,' | ',rows[0].NrTel);
             connection.release();
             if(rows[0].KodWer == recCode && rows[0].NrTel == phoneNumber) {
                 console.log('Dobry Kod i Tel');
-                return res.send(hash);
-            }else{
-                return res.send('Błąd');
-            }
-            
+                pool.getConnection((err,connection)=>{
+                    if(err)
+                    return res.status(404).send(err)
+                    connection.query("UPDATE `users` SET `Handshake`='"+hash+"' WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
+                        connection.release();
+                        if(err){
+                            return res.status(404).send(err);
+                        }
+                        return res.send(hash);
+                    });
+                })
+            }else
+            return res.status(404).send('Error');
+
 
         })
     })
