@@ -15,8 +15,9 @@ const pool = mysql.createPool({
 
 app.post('/veriUsr',(req,res)=>{
     let phoneNumber = req.body.phoneNumber;
-    pool.getConnection((err,con)=>{
-        if(err) throw err;
+    pool.getConnection((err,connection)=>{
+        if(err) 
+        throw err;
         connection.query("SELECT NrTel where NrTel like '"+phoneNumber+"'",(err,rows) =>{
             connection.release();
             if(err)
@@ -24,7 +25,6 @@ app.post('/veriUsr',(req,res)=>{
                 throw 'Problem z połączeniem';
             }else if(rows.includes(phoneNumber))
             throw 'Telefon istnieje w bazie danych';
-            console.log('Dupa');
         });
     });
     if(phoneNumber.length != 9)
