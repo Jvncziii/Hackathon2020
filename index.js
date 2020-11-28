@@ -73,13 +73,19 @@ app.post('/getHandshake',(req,res) =>{
         return res.status(404).send(err)
         connection.query("SELECT NrTel,KodWer from users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
             connection.release();
-            if(err)
-            return res.send(err);
-            else if(rows.length == 0)
-            return res.status(404).send('Podany numer nie jest w bazie danych');
-            else if(rows[0].KodWer != recCode)
-            return res.status(404).send('Kody nie zgadzają się');
-            else if(rows[0].KodWer == recCode){
+            if(err){
+                return res.send(err);
+            }
+            else if(rows.length == 0){
+                console.log('Zły tel');
+                return res.status(404).send('Podany numer nie jest w bazie danych');
+            }
+            else if(rows[0].KodWer != recCode){
+                console.log('Zły kod');
+                return res.status(404).send('Kody nie zgadzają się');
+            }
+            else {
+                console.log('Dobry Kod i Tel');
                 pool.getConnection((err,connection)=>{
                     if(err)
                     return res.status(404).send(err)
