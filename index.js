@@ -23,7 +23,7 @@ app.post('/veriUsr',(req,res)=>{
             if(err)
             {
                 throw err
-            }else if(rows.includes(phoneNumber))
+            }
             console.log(rows);
             console.log('Jest taki telefon');
         });
