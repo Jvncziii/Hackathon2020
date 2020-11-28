@@ -24,7 +24,7 @@ app.post('/veriUsr',(req,res)=>{
             {
                 throw err
             }
-            console.log(rows);
+            console.log(rows[0].nrTel);
             console.log('Jest taki telefon');
         });
     });
