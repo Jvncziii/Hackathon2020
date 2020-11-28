@@ -27,7 +27,7 @@ app.post('/veriUsr',(req,res)=>{
             for(let x = 0;x<rows.length;x++)
             {
                 if(rows[x].NrTel == phoneNumber)
-                res.status(400).send('W bazie istnieje podany numer telefonu');
+                res.status(400).send();
             }
             
         });
