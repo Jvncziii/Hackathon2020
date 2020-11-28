@@ -76,19 +76,7 @@ app.post('/getHandshake',(req,res) =>{
             connection.release();
             if(rows[0].KodWer == recCode && rows[0].NrTel == phoneNumber) {
                 console.log('Dobry Kod i Tel');
-                pool.getConnection((err,connection)=>{
-                    if(err)
-                    return res.status(404).send(err)
-                    connection.query("UPDATE `users` SET `Handshake`='"+hash+"' WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
-                        connection.release();
-                        if(err){
-                            return res.status(404).send(err);
-                        }
-                        return res.send(hash);
-                    });
-                })
-            }else
-            return res.status(404).send('Error');
+            }
 
 
         })
