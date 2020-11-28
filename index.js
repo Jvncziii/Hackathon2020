@@ -67,11 +67,11 @@ app.post('/getHandshake',(req,res) =>{
     console.log(recCode,' | ',phoneNumber,' | ',hash);
     if(phoneNumber.length != 9)
     {
-        return res.status(404).send("Niepoprawny numer telefonu");
+        return res.status(401).send("Niepoprawny numer telefonu");
     }
     pool.getConnection((err,connection) =>{
         if(err)
-        return res.status(404).send(err);
+        return res.status(402).send(err);
         connection.query("SELECT NrTel,KodWer from users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
             connection.release();
             if(rows[0].KodWer == recCode && rows[0].NrTel == phoneNumber) {
@@ -82,7 +82,7 @@ app.post('/getHandshake',(req,res) =>{
                     connection.query("UPDATE `users` SET `Handshake`='"+hash+"' WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
                         connection.release();
                         if(err){
-                            return res.status(404).send(err);
+                            return res.status(403).send(err);
                         }
                         return res.send(hash);
                     });
