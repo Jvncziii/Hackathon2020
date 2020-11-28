@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const pool = mysql.createPool({
     connectionLimit : 50,
-    host: '192.168.101.54',
+    host: '192.168.101.54:3306',
     user:'martinok_dbCare',
     password:'xXDzik2Xx',
     database:'martinok_webApp'
