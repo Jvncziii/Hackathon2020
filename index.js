@@ -24,26 +24,23 @@ app.post('/veriUsr',(req,res)=>{
             {
                 res.status(err);
             }
-            for(let x = 0;x<rows.length;x++)
-            {
-                if(rows[x].NrTel == phoneNumber)
-                console.log(rows[x].NrTel,'   |   ',phoneNumber);
-                res.status(400).send();
-            }
             
-        });
-    });
-    if(phoneNumber.length != 9)
-    {
-        throw new Error("Niepoprawny numer telefonu");
-        
-    }
-    let veriCode = '';
-    for(let x=0;x<5;x++)
-    {
-        veriCode += Math.floor(Math.random()*(9-0+1))+0;
-    }
-    res.send(veriCode);
+                if(rows[0].NrTel == phoneNumber)
+                {
+                    res.send('Error: Taki telefon istnieje w bazie');
+                }else
+                if(phoneNumber.length != 9)
+                    {
+                        throw new Error("Niepoprawny numer telefonu");
+                        
+                    }
+                    let veriCode = '';
+                    for(let x=0;x<5;x++)
+                    {
+                        veriCode += Math.floor(Math.random()*(9-0+1))+0;
+                    }
+                    res.send(veriCode);
+                    };
 });
 app.get('/',(req,res) =>{
     res.send('witam');
