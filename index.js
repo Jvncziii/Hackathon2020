@@ -112,6 +112,9 @@ app.post('/reportSight',(req,res) =>{
     let Miejscowosc = req.body.Miejscowosc;
     let Postal = req.body.Postal;
     let isAccepted = 0;
+    let ZDJ1 = req.body.Zdj1;
+    let ZDJ2 = req.body.Zdj2;
+    let ZDJ3 = req.body.Zdj3;
     console.log(req.body);
 
     pool.getConnection((err,connection)=>{
@@ -138,7 +141,7 @@ app.post('/reportSight',(req,res) =>{
                     {
                         return res.send(err);
                     }
-                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+")",(err,rows)=>{
+                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`,`Pocztowy`, `isAccepted`,`ZDJ1`,`ZDJ2`,`ZDJ3`) VALUES ('"+UID+"','"+DataZg+"','"+Latitude+"','"+Longitude+"','"+MaleZ+"','"+DuzeZ+"','"+MaleM+"','"+DuzeM+"','"+Wojewodztwo+"','"+Miejscowosc+"','"+Postal+"',"+isAccepted+")",(err,rows)=>{
                         connection.release()
                         if(err)
                         {
@@ -181,7 +184,7 @@ app.post('/getSights',(req,res) =>{
                 {
                     return res.send(err);
                 }
-                connection.query("SELECT `Date`,`Latitude`,`Longitude`,`MaleZ`,`DuzeZ`,`MaleM`,`DuzeM`,`Wojewodztwo`,`Miejscowosc`,`Pocztowy` FROM `reports` WHERE `Date` > '"+newestDate+"'",(err,rows)=>{
+                connection.query("SELECT `Date`,`Latitude`,`Longitude`,`MaleZ`,`DuzeZ`,`MaleM`,`DuzeM`,`Wojewodztwo`,`Miejscowosc`,`Pocztowy`,`ZDJ1`,`ZDJ2`,`ZDJ3` FROM `reports` WHERE `Date` > '"+newestDate+"'",(err,rows)=>{
                     connection.release();
                     if(err)
                     {
