@@ -21,7 +21,7 @@ app.post('/veriUsr',(req,res)=>{
             connection.release();
             if(err)
             {
-                throw err;
+                throw 'Problem z połączeniem';
             }else if(rows.includes(phoneNumber))
             throw 'Telefon istnieje w bazie danych';
             console.log('Dupa');
