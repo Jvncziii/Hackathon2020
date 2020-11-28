@@ -70,7 +70,7 @@ app.post('/getHandshake',(req,res) =>{
     }
     pool.getConnection((err,connection) =>{
         if(err)
-        return res.send(err)
+        return res.status(404).send(err)
         connection.query("SELECT NrTel,KodWer from users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
             connection.release();
             if(err)
@@ -82,11 +82,11 @@ app.post('/getHandshake',(req,res) =>{
             else if(rows[0].KodWer == recCode){
                 pool.getConnection((err,connection)=>{
                     if(err)
-                    return res.send(err)
+                    return res.status(404).send(err)
                     connection.query("UPDATE `users` SET `Handshake`='"+hash+"' WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
                         connection.release();
                         if(err)
-                        return res.send(err);
+                        return res.status(404).send(err);
                     });
                 })
                 return res.send(hash);
@@ -101,6 +101,6 @@ app.post('/getHandshake',(req,res) =>{
 
 
 app.get('/',(req,res) =>{
-    res.send('witam');
+    return res.send('witam');
 });
 app.listen(port);
