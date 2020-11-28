@@ -17,6 +17,7 @@ const pool = mysql.createPool({
 
 app.post('/veriUsr',(req,res)=>{
     let phoneNumber = req.body.phoneNumber;
+    console.log(req.body);
     pool.getConnection((err,connection)=>{
         if(err) 
         return res.send(err);
