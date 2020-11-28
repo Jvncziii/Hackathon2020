@@ -18,7 +18,7 @@ app.post('/veriUsr',(req,res)=>{
     pool.getConnection((err,connection)=>{
         if(err) 
         throw err;
-        connection.query("SELECT NrTel where NrTel like '"+phoneNumber+"'FROM users",(err,rows) =>{
+        connection.query("SELECT NrTel FROM `users` WHERE NrTel like '"+phoneNumber+"'",(err,rows) =>{
             connection.release();
             if(err)
             {
