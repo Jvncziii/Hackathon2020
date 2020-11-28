@@ -64,6 +64,39 @@ app.post('/getHandshake',(req,res) =>{
     let hash = crypto.createHash('md5').update(name).digest('hex');
     console.log(recCode,' | ',phoneNumber,' | ',hash);
     res.send(hash);
+    if(phoneNumber.length != 9)
+    {
+        return res.status(404).send("Niepoprawny numer telefonu");
+    }
+    pool.getConnection((err,connection) =>{
+        if(err)
+        return res.send(err)
+        connection.query("SELECT NrTel,KodWer from users WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
+            connection.release();
+            if(err)
+            return res.send(err);
+            else if(rows.length == 0)
+            return res.status(404).send('Podany numer nie jest w bazie danych');
+            else if(rows[0].KodWer != recCode)
+            return res.status(404).send('Kody nie zgadzają się');
+            else if(rows[0].KodWer == recCode){
+                res.send(hash);
+                pool.getConnection((err,connection)=>{
+                    if(err)
+                    return res.send(err)
+                    connection.query("UPDATE `users` SET `Handshake`='"+hash+"' WHERE NrTel like '"+phoneNumber+"'",(err,rows)=>{
+                        connection.release();
+                        if(err)
+                        return res.send(err);
+                    });
+                })
+            }
+
+
+        })
+    })
+    
+    
 });
 
 
