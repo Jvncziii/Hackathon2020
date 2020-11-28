@@ -27,11 +27,11 @@ app.post('/veriUsr',(req,res)=>{
             
                 if(rows[0].NrTel == phoneNumber)
                 {
-                    res.send('Error: Taki telefon istnieje w bazie');
+                    res.status(404).send('Error: Taki telefon istnieje w bazie');
                 }else
                 if(phoneNumber.length != 9)
                     {
-                        res.send("Niepoprawny numer telefonu");
+                        res.status(4044).send("Niepoprawny numer telefonu");
                     }
                     let veriCode = '';
                     for(let x=0;x<5;x++)
