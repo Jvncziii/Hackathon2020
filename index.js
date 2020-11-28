@@ -22,12 +22,12 @@ app.post('/veriUsr',(req,res)=>{
             connection.release();
             if(err)
             {
-                res.error(err);
+                res.status(err);
             }
             for(let x = 0;x<rows.length;x++)
             {
                 if(rows[x].NrTel == phoneNumber)
-                res.error('Taki telefon istnieje');
+                res.status(400).send('W bazie istnieje podany numer telefonu');
             }
             
         });
