@@ -24,7 +24,8 @@ app.post('/veriUsr',(req,res)=>{
             {
                 throw err
             }else if(rows.includes(phoneNumber))
-            throw 'Telefon istnieje w bazie danych';
+            console.log(rows);
+            console.log('Jest taki telefon');
         });
     });
     if(phoneNumber.length != 9)
