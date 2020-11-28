@@ -99,7 +99,7 @@ app.post('/getHandshake',(req,res) =>{
 app.post('/reportSight',(req,res) =>{
     let phoneNumber = req.body.NrTel;
     let handshake = req.body.handshake;
-    let Date = req.body.Date;
+    let DataZg = req.body.Date;
     let Latitude = req.body.Latutude;
     let Longitude = req.body.Longitude;
     let MaleZ = req.body.MaleZ;
@@ -135,7 +135,7 @@ app.post('/reportSight',(req,res) =>{
                     {
                         return res.send(err);
                     }
-                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`, `isAccepted`) VALUES ("+UID+","+Date+","+Latitude+","+Longitude+","+MaleZ+","+DuzeZ+","+MaleM+","+DuzeM+","+Wojewodztwo+","+Miejscowosc+","+isAccepted+")",(err,connection)=>{
+                    connection.query("INSERT INTO `reports`(`UID`, `Date`, `Latitude`, `Longitude`, `MaleZ`, `DuzeZ`, `MaleM`, `DuzeM`, `Wojewodztwo`, `Miejscowosc`, `isAccepted`) VALUES ("+UID+","+DataZg+","+Latitude+","+Longitude+","+MaleZ+","+DuzeZ+","+MaleM+","+DuzeM+","+Wojewodztwo+","+Miejscowosc+","+isAccepted+")",(err,connection)=>{
                         connection.release();
                         if(err)
                         {
