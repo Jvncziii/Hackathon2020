@@ -193,7 +193,7 @@ app.post('/getSights',(req,res) =>{
                 {
                     return res.send(err);
                 }
-                connection.query("SELECT `Date`,`Latitude`,`Longitude`,`MaleZ`,`DuzeZ`,`MaleM`,`DuzeM`,`Wojewodztwo`,`Miejscowosc`,`Pocztowy`,`ZDJ1`,`ZDJ2`,`ZDJ3` FROM `reports` WHERE `Date` > '"+newestDate+"'",(err,rows)=>{
+                connection.query("SELECT `Date`,`Latitude`,`Longitude`,`MaleZ`,`DuzeZ`,`MaleM`,`DuzeM`,`Wojewodztwo`,`Miejscowosc`,`Pocztowy` FROM `reports` WHERE `Date` > '"+newestDate+"'",(err,rows)=>{
                     connection.release();
                     if(err)
                     {
@@ -239,44 +239,7 @@ app.post('/partPhotoUpload',(req,res)=>{
 })
 
 
-app.post('/photoLength',(req,res)=>{
-    let handshake = req.body.handshake;
-    let phoneNumber = req.body.NrTel;
-    let ReportID = req.body.ReportID;
-    let whichPhoto = req.body.whichPhoto;
-    pool.getConnection((err,connection)=>{
-        if(err)
-        {
-            return res.send(err)
-        }
-        connection.query("Select Handshake from users where NrTel like '"+phoneNumber+"' ",(err,rows)=>{
-            connection.release();
-            if(err)
-            {
-                return res.send(err);
-            }else if(rows[0].Handshake == handshake)
-            {
-                pool.getConnection((err,connection)=>{
-                    if(err)
-                    {
-                        return res.send(err)
-                    }
-                    console.log("Select LENGTH(`ZDJ"+whichPhoto+"`) FROM reports where Report_ID like '"+ReportID+"'");
-                    connection.query("Select SUBSTR(`ZDJ"+whichPhoto+"`,1,10000) FROM reports where Report_ID = "+ReportID+"",(err,rows)=>{
-                        connection.release();
-                        if(err)
-                        {
-                            return res.send(err)
-                        }else
-                        console.log('Witam ',rows[0])
-                        return res.send(rows[0]);
-                    })
-                })
-            }else
-            return res.send("Zły handshake");
-        })
-    })
-})
+
 
 
 
