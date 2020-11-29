@@ -240,6 +240,7 @@ app.post('/partPhotoUpload',(req,res)=>{
 
 app.post('/photoLength',(req,res)=>{
     let handshake = req.body.handshake;
+    let phoneNumber = req.body.NrTel;
     let ReportID = req.body.ReportID;
     let whichPhoto = req.body.whichPhoto;
     pool.getConnection((err,connection)=>{
