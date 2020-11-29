@@ -238,6 +238,41 @@ app.post('/partPhotoUpload',(req,res)=>{
 })
 
 
+app.post('/photoLength',(req,res)=>{
+    let handshake = req.body.handshake;
+    let ReportID = req.body.ReportID;
+    let whichPhoto = req.body.whichPhoto;
+    pool.getConnection((err,connection)=>{
+        if(err)
+        {
+            return res.send(err)
+        }
+        connection.query("Select Handshake from users where NrTel like '"+phoneNumber+"' ",(err,rows)=>{
+            if(err)
+            {
+                return res.send(err);
+            }else if(rows[0].Handshake == handshake)
+            {
+                connection.release();
+                pool.getConnection((err,connection)=>{
+                    if(err)
+                    {
+                        return res.send(err)
+                    }
+                    connection.query("Select LENGTH(`ZDJ'"+whichPhoto+"'`) FROM reports where Report_ID like '"+ReportID+"'",(err,rows)=>{
+                        if(err)
+                        {
+                            return res.send(err)
+                        }else
+                        return res.send(rows[0]);
+                    })
+                })
+            }else
+            return res.send("Zły handshake");
+        })
+    })
+})
+
 app.get('/',(req,res) =>{
     return res.send('witam');
 });
