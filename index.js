@@ -261,7 +261,7 @@ app.post('/photoLength',(req,res)=>{
                         return res.send(err)
                     }
                     console.log("Select LENGTH(`ZDJ"+whichPhoto+"`) FROM reports where Report_ID like '"+ReportID+"'");
-                    connection.query("Select LENGTH(`ZDJ"+whichPhoto+"`) FROM reports where Report_ID like '"+ReportID+"'",(err,rows)=>{
+                    connection.query("Select ZDJ"+whichPhoto+" FROM reports where Report_ID like '"+ReportID+"'",(err,rows)=>{
                         if(err)
                         {
                             return res.send(err)
@@ -274,6 +274,8 @@ app.post('/photoLength',(req,res)=>{
         })
     })
 })
+
+
 
 app.get('/',(req,res) =>{
     return res.send('witam');
