@@ -256,7 +256,6 @@ app.post('/photoLength',(req,res)=>{
                 return res.send(err);
             }else if(rows[0].Handshake == handshake)
             {
-                connection.release();
                 pool.getConnection((err,connection)=>{
                     if(err)
                     {
