@@ -226,6 +226,7 @@ app.post('/partPhotoUpload',(req,res)=>{
                     if(err)
                     return res.send(err)
                     connection.query("UPDATE `reports` SET `ZDJ"+whichPhoto+"` = CONCAT(`ZDJ"+whichPhoto+"`,'"+photoPart+"') WHERE Report_ID = "+ReportID+"",(err,rows)=>{
+                        connection.release();
                         if(err)
                         return res.send(err)
                         return res.send("Dodano część "+whichPart+"")
@@ -249,6 +250,7 @@ app.post('/photoLength',(req,res)=>{
             return res.send(err)
         }
         connection.query("Select Handshake from users where NrTel like '"+phoneNumber+"' ",(err,rows)=>{
+            connection.release();
             if(err)
             {
                 return res.send(err);
@@ -262,6 +264,7 @@ app.post('/photoLength',(req,res)=>{
                     }
                     console.log("Select LENGTH(`ZDJ"+whichPhoto+"`) FROM reports where Report_ID like '"+ReportID+"'");
                     connection.query("Select SUBSTR(`ZDJ"+whichPhoto+"`,1,50000) FROM reports where Report_ID = "+ReportID+"",(err,rows)=>{
+                        connection.release();
                         if(err)
                         {
                             return res.send(err)
