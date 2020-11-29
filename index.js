@@ -262,7 +262,7 @@ app.post('/photoLength',(req,res)=>{
                         return res.send(err)
                     }
                     console.log("Select LENGTH(`ZDJ"+whichPhoto+"`) FROM reports where Report_ID like '"+ReportID+"'");
-                    connection.query("Select SUBSTR(`ZDJ"+whichPhoto+"`,1,50000) FROM reports where Report_ID = "+ReportID+"",(err,rows)=>{
+                    connection.query("Select SUBSTR(`ZDJ"+whichPhoto+"`,1,10000) FROM reports where Report_ID = "+ReportID+"",(err,rows)=>{
                         connection.release();
                         if(err)
                         {
