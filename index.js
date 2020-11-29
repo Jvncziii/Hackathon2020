@@ -266,6 +266,7 @@ app.post('/photoLength',(req,res)=>{
                         {
                             return res.send(err)
                         }else
+                        console.log('Witam ',rows[0])
                         return res.send(rows[0]);
                     })
                 })
