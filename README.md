@@ -1,4 +1,4 @@
-Boar spotting app
+Boar spotting app /backend/
 
 host: 'mysql50.mydevil.net',
     user:'m1124_boarApp',
